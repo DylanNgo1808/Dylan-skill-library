@@ -16,11 +16,12 @@ Open [CONFIG.md](CONFIG.md) and set:
 
 ```
 VAULT_PATH: ~/Obsidian/Memories
+OWNER_NAME: Your Name
 ```
 
 Use `~` or an absolute path. If the vault moves later, change **only** this file.
 
-Then edit the **Project Map** in the same file so repo names and spoken aliases resolve to folders under `3. Projects/`. The shipped map is an example (Craftboard, Avada, PDF-Invoice, LifeOS, Side-Projects) — replace it with yours.
+Then edit the **Project Map** in the same file so repo names and spoken aliases resolve to folders under `3. Projects/`. The shipped map is a placeholder row plus `Side-Projects` — replace the placeholder with your own projects.
 
 ## 2. Create the folder layout
 
@@ -45,7 +46,7 @@ mkdir -p \
   "$VAULT/7. Daily Notes"
 ```
 
-Create extra project folders to match the Project Map (`3. Projects/Craftboard/`, etc.).
+Create extra project folders to match the Project Map (for example `3. Projects/Brand-Videos/`).
 
 ## 3. Install note templates
 
@@ -63,7 +64,7 @@ cp "$SKILL/References/weekly-review.template.md" "$VAULT/5. Resources/Templates/
 Create an empty sources index if you do not have one yet:
 
 ```sh
-cat > "$VAULT/2. Notes/Reference/2026-02-28-sources-index.md" <<'EOF'
+cat > "$VAULT/2. Notes/Reference/sources-index.md" <<'EOF'
 # Sources index
 
 Chronological log of notes saved by KnowledgeBase.
@@ -71,7 +72,7 @@ Chronological log of notes saved by KnowledgeBase.
 EOF
 ```
 
-If you already have an index, set its path in `CONFIG.md` (`sources index` row) instead of overwriting it.
+If you already have an index, set its path in `CONFIG.md` (`SOURCES_INDEX`) instead of overwriting it.
 
 ## 4. Verify
 

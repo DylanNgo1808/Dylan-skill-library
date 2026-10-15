@@ -74,7 +74,7 @@ tags:
   - {topic-tag-1}
   - {topic-tag-2}
 sources: {N}
-telos:
+telos:            # only when TELOS_ENABLED is true in CONFIG.md
   problems: [{inferred from source notes}]
   goals: [{inferred from source notes}]
   projects: [{inferred from source notes}]
@@ -85,7 +85,7 @@ connections:
 
 # {Topic}
 
-{2-3 sentence overview: what this topic is and why it matters in Dylan's context}
+{2-3 sentence overview: what this topic is and why it matters in your context}
 
 ## Key Patterns
 

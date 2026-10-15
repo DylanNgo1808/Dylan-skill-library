@@ -1,11 +1,16 @@
 # KnowledgeBase — Config (single source of truth)
 
-> Load this FIRST when the skill activates. Every workflow resolves paths against `VAULT_PATH`.
-> **If the vault moves, change ONLY this file** — no workflow hardcodes the path anymore.
+> Load this FIRST when the skill activates. Edit it once during setup (see `SETUP.md`).
+> Every workflow resolves paths against `VAULT_PATH`. **If the vault moves, change ONLY this file.**
+> No credentials belong in this file.
 
 ```
 VAULT_PATH: ~/Obsidian/Memories
+OWNER_NAME: (your name, used as the default decision owner)
+SOURCES_INDEX: 2. Notes/Reference/sources-index.md
 ```
+
+`VAULT_PATH` is your Obsidian vault root: `~` or an absolute path (`C:/Users/you/Documents/MyVault` on Windows).
 
 ## Folder Map
 
@@ -23,26 +28,29 @@ VAULT_PATH: ~/Obsidian/Memories
 | `synthesis` | `2. Notes/Synthesis/` | concept pages (folder created on first synthesis) |
 | `inbox` | `1. Inbox/` | unsorted fallback when type is unclear |
 | `daily` | `7. Daily Notes/` | per-day aggregator |
-| sources index | `2. Notes/Reference/2026-02-28-sources-index.md` | running index of saves |
-| templates | `5. Resources/Templates/` | note templates |
-| session queue | `1. Inbox/Session Queue.md` | auto-fed by KnowledgeQueue.hook.ts (Stop hook); processed via Workflows/ProcessQueue.md |
-| archive | `6. Archive/` | retired content (e.g. `Telos-2026-02/` — superseded by `~/.claude` TELOS) |
+| sources index | `SOURCES_INDEX` above | running index of saves |
+| templates | `5. Resources/Templates/` | note templates (copied from this skill's `References/*.template.md`) |
+| session queue | `1. Inbox/Session Queue.md` | auto-fed by the optional `Tools/KnowledgeQueue.hook.ts` (Stop hook); processed via `Workflows/ProcessQueue.md` |
+| archive | `6. Archive/` | retired content |
 
 ## Project Map
 
-Project notes ALWAYS live one level under `3. Projects/` in a project folder. Resolve the folder from the repo/context via this alias map; create a new folder only for a genuinely new ongoing project (else use `Side-Projects/`).
+Project notes ALWAYS live one level under `3. Projects/` in a project folder. Resolve the folder from the repo/context via this alias map; create a new folder only for a genuinely new ongoing project (else use `Side-Projects/`). Replace the example rows with your own projects.
 
 | Aliases (repo names, spoken references) | Folder |
 |-----------------------------------------|--------|
-| craftboard, craftboard.ai, helpdesk-docs, help docs, "the canvas app", FIXED. series | `3. Projects/Craftboard/` |
-| avada, avada-crm, avada-io, joy, joy loyalty, analytics, nexus, marketing work | `3. Projects/Avada/` (skill AvadaWork owns `projects/` + `archive/` inside; old marketing notes in `Marketing/`) |
-| pdf invoice, invoice generator, invoice website | `3. Projects/PDF-Invoice/` |
-| lifeos, pai, ~/.claude, hooks, skills, the DA, Albert | `3. Projects/LifeOS/` |
+| {{project aliases, e.g. "brand videos, reels, the channel"}} | `3. Projects/{{Project-Name}}/` |
 | one-off explorations, unclassified projects | `3. Projects/Side-Projects/` |
 
-## Voice (PAI Pulse)
+## Optional features
 
 ```
-endpoint: http://localhost:31337/notify
-voice_id: 21m00Tcm4TlvDq8ikWAM
+# Telos goal mapping: tag notes with your goal/project IDs. Off by default.
+TELOS_ENABLED: false
+# TELOS_PROBLEMS: /path/to/PROBLEMS.md
+# TELOS_GOALS: /path/to/GOALS.md
+# TELOS_PROJECTS: /path/to/PROJECTS.md
+
+# Voice notification: POST a short message to a local voice server before each workflow. Leave unset to skip.
+# VOICE_ENDPOINT: http://localhost:8888/notify
 ```

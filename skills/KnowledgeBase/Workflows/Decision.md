@@ -1,6 +1,6 @@
 # Decision Workflow
 
-Log a decision with WHY and tradeoffs ENFORCED. Adapted from Avada's avader-folder `/decision` skill: a decision without a real why and a real tradeoff does not get saved.
+Log a decision with WHY and tradeoffs ENFORCED: a decision without a real why and a real tradeoff does not get saved.
 
 ## Configuration
 
@@ -22,13 +22,13 @@ TEMPLATE: {VAULT_PATH}/5. Resources/Templates/decision.md
 
 The point is to make the user think, not to fill a form fast. If the conversation already contains an answer, propose it for confirmation instead of re-asking.
 
-1. **Decision** — one imperative sentence. ("Kill the marketer-content spine for Craftboard.")
+1. **Decision** — one imperative sentence. ("Move the weekly report from Friday to Monday.")
 2. **Context** — why does this decision exist now? (3-5 sentences)
 3. **Why this option** — why this and NOT the alternatives? (3-5 bullets)
 4. **Alternatives considered** — 1-3 rejected options, each with the rejection reason.
 5. **Tradeoff accepted** — what is lost by choosing this?
 6. **Reversibility** — one-way door (hard to undo) or two-way door (cheap to revert)?
-7. **Owner + date** — default: Dylan, today.
+7. **Owner + date** — default: `OWNER_NAME` from CONFIG.md, today.
 
 ### Phase 2 — ENFORCE (hard gate, no exceptions)
 
@@ -40,7 +40,7 @@ The point is to make the user think, not to fill a form fast. If the conversatio
 
 1. `review_date` = today + 3 months. `status: active`.
 2. Slugify title → `{FOLDER}/YYYY-MM-DD-{slug}.md`, fill TEMPLATE.
-3. Connections pass (same as Save.md Phase 2/3): map Telos IDs, grep vault for related notes, wikilink up to 5.
+3. Connections pass (same as Save.md Phase 2/3): map Telos IDs when TELOS_ENABLED, grep vault for related notes, wikilink up to 5.
 4. Update daily note + sources index per Save.md Phase 4.
 
 ### Phase 4 — Confirm

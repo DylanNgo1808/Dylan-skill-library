@@ -1,6 +1,6 @@
 # Search Workflow
 
-Search Dylan's Obsidian vault for existing notes by keyword, tag, or date.
+Search your Obsidian vault for existing notes by keyword, tag, or date.
 
 ## Configuration
 

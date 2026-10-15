@@ -1,25 +1,26 @@
 ---
 name: KnowledgeBase
-description: Save, search, and synthesize content in Dylan's local Obsidian vault (~/Obsidian/Memories). USE WHEN user says 'save to vault', 'knowledge base', 'save note', 'obsidian', 'remember this', 'save this', 'clip this', 'save conversation', 'meeting notes', 'journal entry', 'daily journal', 'search vault', 'search notes', 'find in vault', 'save to obsidian', 'vault search', 'log this', 'note this down', 'add to knowledge base', 'lint vault', 'audit vault', 'vault health', 'synthesize notes', 'concept page', 'merge notes', 'what do I know about', 'process the queue', 'knowledge base queue', 'session queue', 'process queued sessions', 'log a decision', 'decision log', 'we decided', 'record this decision', 'log this choice'.
+description: "Save, search and synthesize notes in your local Obsidian vault. USE WHEN save to vault, knowledge base, save note, obsidian, remember this, clip this, save conversation, meeting notes, journal entry, daily journal, search vault, find in vault, what do I know about, lint vault, vault health, synthesize notes, concept page, merge notes, process the queue, session queue, log a decision, decision log, we decided, record this decision, set up knowledge base."
 ---
 
 ## Configuration (load first)
 
-All paths come from `CONFIG.md` (single source of truth). Read it once when the skill activates — it holds `VAULT_PATH`, the folder map, and the voice endpoint. **If the vault ever moves, edit only `CONFIG.md`.**
+All paths come from `CONFIG.md` (single source of truth). Read it once when the skill activates — it holds `VAULT_PATH`, the folder map, the project map, and the optional features. **If the vault ever moves, edit only `CONFIG.md`.**
+
+`VAULT_PATH` missing or not an existing folder means the skill is not set up yet: run `Workflows/Setup.md` (human guide: `SETUP.md`) before doing anything else.
 
 ## Customization
 
-**Before executing, check for user customizations at:**
-`~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/KnowledgeBase/`
+If `PREFERENCES.md` exists next to this file, load it and apply it. It overrides the defaults below.
 
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
+## Optional: Voice Notification
 
-## MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
+Only when `CONFIG.md` sets `VOICE_ENDPOINT`. Otherwise skip this step entirely.
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST {VOICE_ENDPOINT} \
   -H "Content-Type: application/json" \
-  -d '{"message": "Running the WORKFLOWNAME workflow in the KnowledgeBase skill to ACTION", "voice_id": "21m00Tcm4TlvDq8ikWAM", "voice_enabled": true}' \
+  -d '{"message": "Running the WORKFLOWNAME workflow in the KnowledgeBase skill to ACTION"}' \
   > /dev/null 2>&1 &
 ```
 
@@ -31,7 +32,6 @@ Save, search, and manage content in the Obsidian vault.
 
 | Trigger | Workflow |
 |---------|----------|
-| Set up KnowledgeBase, vault path, first-time install | `Workflows/Setup.md` |
 | Save content, note, idea, learning, conversation, reference, clip, resource | `Workflows/Save.md` |
 | Search vault, find notes, search by tag/keyword | `Workflows/Search.md` |
 | Journal entry, daily journal, log today | `Workflows/DailyJournal.md` |
@@ -40,6 +40,7 @@ Save, search, and manage content in the Obsidian vault.
 | Synthesize notes, concept page, merge notes, what do I know about | `Workflows/Synthesize.md` |
 | Process the queue, knowledge base queue, session queue, review queued sessions | `Workflows/ProcessQueue.md` |
 | Log a decision, decision log, we decided, record this choice | `Workflows/Decision.md` |
+| Set up KnowledgeBase, vault path, first-time install | `Workflows/Setup.md` |
 
 ## Quick Reference
 

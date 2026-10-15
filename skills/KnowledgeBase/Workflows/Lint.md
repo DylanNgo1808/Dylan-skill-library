@@ -6,8 +6,8 @@ Audit the Obsidian vault for health issues: orphan notes, stale content, missing
 
 ```
 VAULT_PATH: load from ../CONFIG.md (single source of truth)
-SOURCES_INDEX: 2. Notes/Reference/2026-02-28-sources-index.md
-TELOS_PATH: ~/.claude/skills/PAI/USER/TELOS
+SOURCES_INDEX: load from ../CONFIG.md
+TELOS_ENABLED / TELOS_GOALS / TELOS_PROJECTS: load from ../CONFIG.md (checks 2 and 4 run only when TELOS_ENABLED is true)
 ```
 
 ## Trigger Phrases
@@ -39,7 +39,7 @@ TELOS_PATH: ~/.claude/skills/PAI/USER/TELOS
 
 **Procedure:**
 
-1. Run five scans in parallel across `**/*.md` under `VAULT_PATH` (exclude `0. Telos/`, `5. Resources/Templates/`, `attachments/`):
+1. Run five scans in parallel across `**/*.md` under `VAULT_PATH` (exclude `5. Resources/Templates/`, `6. Archive/`, `attachments/`):
    - S1: `grep -l "status:\s*orphan"`
    - S2: `grep -l "related:\s*\[\]"`
    - S3: files with `^---` frontmatter but no `^connections:` line
@@ -48,7 +48,7 @@ TELOS_PATH: ~/.claude/skills/PAI/USER/TELOS
 2. Deduplicate across signals. Report counts per signal and the union.
 3. For S1 + S2 notes (oldest first, cap 10): read frontmatter, extract tags, batch-grep vault for shared tags, report **reconnection candidates**.
 4. For S3 + S4 notes: report filename + folder + title only (no reconnection suggestions — these need schema backfill first).
-5. For S5 notes: suggest a target folder per file (e.g., `Avada-work/`, `3. Projects/`, `7. Daily Notes/`).
+5. For S5 notes: suggest a target folder per file (e.g., `3. Projects/{Project}/`, `2. Notes/Reference/`, `7. Daily Notes/`).
 6. Do NOT auto-edit notes. Report only.
 7. **Output:** Four sub-sections — Explicit orphans, Schema-missing, Isolated, Loose files — each with counts + example entries (cap 20 per section).
 
@@ -58,7 +58,7 @@ TELOS_PATH: ~/.claude/skills/PAI/USER/TELOS
 
 **Procedure:**
 
-1. Read `{TELOS_PATH}/GOALS.md` to get active goal IDs and descriptions
+1. Read the goals file at `TELOS_GOALS` to get active goal IDs and descriptions
 2. Grep `VAULT_PATH` for notes with `telos:` frontmatter containing active goal IDs
 3. Filter to notes with `date:` older than 90 days from today
 4. **Output:** List of stale notes grouped by Telos goal, with date and title
@@ -82,8 +82,8 @@ TELOS_PATH: ~/.claude/skills/PAI/USER/TELOS
 
 **Procedure:**
 
-1. Read `{TELOS_PATH}/GOALS.md` and `{TELOS_PATH}/PROJECTS.md`
-2. For each goal/project ID (G1-G9, PR0-PR3):
+1. Read the files at `TELOS_GOALS` and `TELOS_PROJECTS`
+2. For each goal/project ID found there:
    - Grep `VAULT_PATH` for the ID in `telos:` frontmatter
    - Count matching notes
 3. **Output:** Table of goal/project → note count, sorted ascending (thinnest coverage first)
@@ -155,7 +155,7 @@ Present results as a structured health report:
 ## Edge Cases
 
 - **Empty vault:** Report "Vault has fewer than 5 notes — lint is not useful yet."
-- **No Telos files:** Skip checks 2 and 4, note in report: "Telos files not found — skipping goal-related checks."
+- **Telos disabled or files missing:** Skip checks 2 and 4, note in report: "Telos not enabled — skipping goal-related checks."
 - **Sources index missing:** Skip check 5, note in report: "Sources index not found — skipping topical index rebuild."
 - **Very large vault (500+ notes):** Reduce orphan scan to 5, tag sampling to 10, and add a warning: "Large vault — running abbreviated lint. Consider running focused checks individually."
 

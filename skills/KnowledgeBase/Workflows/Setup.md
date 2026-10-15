@@ -2,15 +2,6 @@
 
 Verify the Obsidian vault and KnowledgeBase config before the first save. Read-only unless the principal explicitly asks you to create missing folders or templates.
 
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:31337/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Setup workflow in the KnowledgeBase skill to verify the vault"}' \
-  > /dev/null 2>&1 &
-```
-
 Running the **Setup** workflow in the **KnowledgeBase** skill to verify the vault...
 
 ## Step 1: Load config

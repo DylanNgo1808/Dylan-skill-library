@@ -86,5 +86,5 @@ Use the Edit tool to append after the last line of the existing file.
 ### Notes
 
 - One weekly review per week — if the file already exists for this date, warn before overwriting
-- The template includes the current Telos goals (G1-G9), projects (PR0-PR3), and strategies (S0-S4)
+- The template has sections for wins, misses, project progress, energy and next week's focus. Add your own goals to it if you track them
 - User fills in the template after creation — do not auto-fill sections

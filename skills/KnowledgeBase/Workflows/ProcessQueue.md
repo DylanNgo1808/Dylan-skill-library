@@ -1,6 +1,6 @@
 # ProcessQueue Workflow
 
-Turn queued Claude Code sessions into project notes in the vault. The queue is fed automatically by `~/.claude/hooks/KnowledgeQueue.hook.ts` (Stop hook) — every substantive session gets one entry. This workflow is the human-in-the-loop half: review, draft, approve, file.
+Turn queued Claude Code sessions into project notes in the vault. The queue is fed automatically by the optional Stop hook `~/.claude/hooks/KnowledgeQueue.hook.ts` (shipped in this skill as `Tools/KnowledgeQueue.hook.ts`, installed by SETUP.md step 5) — every substantive session gets one entry. Without the hook the queue stays empty and this workflow has nothing to do. This workflow is the human-in-the-loop half: review, draft, approve, file.
 
 ## Configuration
 
@@ -33,7 +33,7 @@ For each selected entry, spawn a general-purpose agent (parallel batch, one per 
 
 ### Phase 3 — Draft
 
-For each substantive session, draft a note using the **Save.md file format** (frontmatter: title, date, type: project, tags, telos, connections):
+For each substantive session, draft a note using the **Save.md file format** (frontmatter: title, date, type: project, tags, telos (only when TELOS_ENABLED), connections):
 
 - **Path:** `{VAULT_PATH}/3. Projects/{Project}/YYYY-MM-DD-{slug}.md` — resolve `{Project}` via the alias map in CONFIG.md; date = session date from the queue entry.
 - **Body sections:** Context (what the session was), Decisions, Findings, Links, Next steps (if any).
